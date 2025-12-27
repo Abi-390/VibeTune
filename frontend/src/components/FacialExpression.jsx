@@ -1,25 +1,19 @@
 import React, { useEffect, useRef } from "react";
 import * as faceapi from "face-api.js";
 
-export default function FaceDetector() {
+export default function FacialExpression() {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    const loadModelsAndStartVideo = async () => {
+    const init = async () => {
       await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
       await faceapi.nets.faceExpressionNet.loadFromUri("/models");
 
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then((stream) => {
-          if (videoRef.current) {
-            videoRef.current.srcObject = stream;
-          }
-        })
-        .catch((err) => console.error("Camera error:", err));
+      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+        if (videoRef.current) videoRef.current.srcObject = stream;
+      });
     };
-
-    loadModelsAndStartVideo();
+    init();
   }, []);
 
   const detectMood = async () => {
@@ -32,29 +26,46 @@ export default function FaceDetector() {
       )
       .withFaceExpressions();
 
-    if (!detections || detections.length === 0) {
+    if (!detections.length) {
       console.log("No face detected");
       return;
     }
 
-    let maxProb = 0;
-    let emotion = "";
-
     const expressions = detections[0].expressions;
-    for (const exp in expressions) {
-      if (expressions[exp] > maxProb) {
-        maxProb = expressions[exp];
-        emotion = exp;
-      }
-    }
+    const mood = Object.keys(expressions).reduce((a, b) =>
+      expressions[a] > expressions[b] ? a : b
+    );
 
-    console.log("Detected emotion:", emotion);
+    console.log("Detected mood:", mood);
   };
 
   return (
-    <>
-      <video ref={videoRef} autoPlay muted width="480" height="360" />
-      <button onClick={detectMood}>Detect Mood</button>
-    </>
+    <section className="bg-gradient-to-br from-gray-400 via-gray-100 to-gray-700 backdrop-blur rounded-2xl p-6 md:p-8 shadow-lg">
+      <div className="flex flex-col md:flex-row items-center gap-6">
+        
+        {/* Video */}
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          className="rounded-xl w-full md:w-[420px] aspect-video object-cover border border-slate-700"
+        />
+
+        {/* Controls */}
+        <div className="flex flex-col items-center md:items-start gap-4">
+          <h2 className="text-xl font-medium text-slate-900">Detect your mood</h2>
+          <p className="text-slate-600 text-sm">
+            Click the button to analyze facial expression
+          </p>
+
+          <button
+            onClick={detectMood}
+            className="px-6 py-2 rounded-full bg-rose-500 hover:bg-rose-600 transition text-white text-sm font-medium"
+          >
+            Detect Mood
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
