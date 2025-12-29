@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const songModel = require("../models/song.model")
+
 const multer = require("multer");
 const uploadFile = require("../service/storage.service");
 
@@ -24,11 +26,18 @@ router.post("/songs", upload.single("audio"), async (req, res) => {
 
   const fileData = await uploadFile(req.file);
 
+  const song = await songModel.create({
+    title:req.body.title,
+    artist:req.body.artist,
+    audio:fileData.url,
+    mood:req.body.mood
+  })
+
   console.log(fileData);
 
   res.status(201).json({
     message: "Song created successfully",
-    song: req.body,
+    song: song,
   });
 });
 

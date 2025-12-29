@@ -11,7 +11,8 @@ function uploadFile(file) {
     imagekit.upload(
       {
         file: file.buffer,
-        fileName: "tokyo-bon",
+        fileName: Math.random().toString(36).substring(10),
+        folder:"VibeTune-audio"
       },
       (error, result) => {
         if (error) {

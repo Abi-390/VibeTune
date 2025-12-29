@@ -7,6 +7,6 @@ const songSchema = mongoose.Schema({
     audio:String
 })
 
-const song = mongoose.model('song',songSchema)
+const songModel = mongoose.model('song',songSchema)
 
-module.exports = song
+module.exports = songModel
