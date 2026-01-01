@@ -40,7 +40,7 @@ export default function FacialExpression() {
   };
 
   return (
-    <section className="bg-gradient-to-br from-gray-400 via-gray-100 to-gray-700 backdrop-blur rounded-2xl p-6 md:p-8 shadow-lg">
+    <section className="bg-gradient-to-br from-blue-300 via-blue-50 to-blue-50 backdrop-blur rounded-2xl p-6 md:p-8 shadow-lg">
       <div className="flex flex-col md:flex-row items-center gap-6">
         
         {/* Video */}
@@ -48,19 +48,19 @@ export default function FacialExpression() {
           ref={videoRef}
           autoPlay
           muted
-          className="rounded-xl w-full md:w-[420px] aspect-video object-cover border border-slate-700"
+          className="rounded-xl w-full md:w-[420px] aspect-video object-cover border border-white"
         />
 
         {/* Controls */}
         <div className="flex flex-col items-center md:items-start gap-4">
-          <h2 className="text-xl font-medium text-slate-900">Detect your mood</h2>
-          <p className="text-slate-600 text-sm">
+          <h2 className="text-xl font-medium text-blue-900">Detect your mood</h2>
+          <p className="text-blue-600 text-sm">
             Click the button to analyze facial expression
           </p>
 
           <button
             onClick={detectMood}
-            className="px-6 py-2 rounded-full bg-rose-500 hover:bg-rose-600 transition text-white text-sm font-medium"
+            className="px-6 py-2 rounded-full bg-blue-500 hover:bg-blue-600 transition text-white text-sm font-medium"
           >
             Detect Mood
           </button>
