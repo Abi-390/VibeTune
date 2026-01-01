@@ -41,4 +41,17 @@ router.post("/songs", upload.single("audio"), async (req, res) => {
   });
 });
 
+router.get('/songs',async(req,res)=>{
+  const {mood} = req.query;
+
+  const songs = await songModel.find({
+    mood : mood
+  })
+  
+  res.status(200).json({
+    message:"Songs fetched successfully",songs
+  })
+
+})
+
 module.exports = router;

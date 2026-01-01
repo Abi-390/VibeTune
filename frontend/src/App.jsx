@@ -1,7 +1,11 @@
+import { useState } from "react";
 import FacialExpression from "./components/FacialExpression";
 import MoodSongs from "./components/MoodSongs";
 
 function App() {
+  const [songs,setsongs] = useState([
+   
+  ]);
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-6xl mx-auto px-4 py-10 space-y-12">
@@ -19,9 +23,9 @@ function App() {
         </header>
 
         
-        <FacialExpression />
+        <FacialExpression setsongs={setsongs} />
 
-        <MoodSongs />
+        <MoodSongs songs = {songs} />
 
       </div>
     </div>
