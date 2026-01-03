@@ -1,4 +1,4 @@
-# 🎧 VibeTune — Emotion-Aware Music Player (Frontend)
+# 🎧 VibeTune — Emotion-Aware Music Player
 
 VibeTune is a modern React-based web application that detects a user’s **facial expression** in real time and recommends music based on their **current mood**.  
 It combines computer vision with a clean, responsive UI to create an immersive, emotion-aware music experience.
